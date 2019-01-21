@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "225266735356",
+    "firebase_url": "https://farewell-63ec9.firebaseio.com",
+    "project_id": "farewell-63ec9",
+    "storage_bucket": "farewell-63ec9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225266735356:android:f0ed189c77711d16",
+        "android_client_info": {
+          "package_name": "com.example.groundzero.farewell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225266735356-a0p5m98e9ls6d28bjo2614ncadat6uht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.groundzero.farewell",
+            "certificate_hash": "4d88c9f71bd60e1a045bf365b2367d010a498bfa"
+          }
+        },
+        {
+          "client_id": "225266735356-c2ao69rn54frdlc8t3h6mrd5ru77l9bt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBeVSoFr4flDztBpLYLA4JSOXglPt7MOI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225266735356-c2ao69rn54frdlc8t3h6mrd5ru77l9bt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

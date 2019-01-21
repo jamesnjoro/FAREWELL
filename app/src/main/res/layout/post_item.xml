@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:textColor="#ffffff"
+        android:layout_marginStart="158dp"
+        android:textStyle="bold"
+        android:layout_marginTop="36dp"
+        android:text="@string/named" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView15"
+        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:layout_marginTop="68dp"
+        android:text="@string/dod" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_alignParentTop="true"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:layout_marginTop="102dp"
+        android:text="@string/dob" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView15"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="22dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:text="@string/named" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView16"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="0dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:text="@string/sunrise" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView17"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="0dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:text="@string/sunset" />
+</RelativeLayout>
