@@ -19,10 +19,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,17 +33,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth mAuth;
     private Toolbar mtoolbar;
     FirebaseDatabase firebaseDatabase;
+    FirebaseFirestore db;
+    DocumentReference documentReference;
     DatabaseReference databaseReference;
     FirebaseRecyclerOptions<postI> options;
     FirebaseRecyclerAdapter<postI,MyAdapter> adapter;
     RecyclerView recyclerView;
     InternetCheck check;
+    TextView nameNav,emailNav;
+    FirebaseUser currentUser;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +61,22 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("EDMT_FIREBASE");
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         recyclerView= (RecyclerView)findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         check = new InternetCheck(this);
+
+        if(currentUser==null){
+            startScreen();
+        }else{
+            displaC();
+            adapter.notifyDataSetChanged();
+
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -65,6 +87,25 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        nameNav = (TextView) headerView.findViewById(R.id.userNav);
+        emailNav =(TextView) headerView.findViewById(R.id.textView);
+
+        documentReference = db.collection("users").document(currentUser.getEmail());
+        emailNav.setText(currentUser.getEmail());
+
+            documentReference.get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            nameNav.setText(documentSnapshot.getString("name"));
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    nameNav.setText("No name");
+                }
+            });
         if(check.isConnected()){
             Toast.makeText(MainActivity.this, "connection Successful",
                     Toast.LENGTH_SHORT).show();
@@ -75,13 +116,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        if(currentUser==null){
-            startScreen();
-        }else{
-            displaC();
-            adapter.notifyDataSetChanged();
 
-        }
 
     }
 
@@ -140,12 +175,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_send) {
-
+                FirebaseAuth.getInstance().signOut();
+                startScreen();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
