@@ -70,11 +70,9 @@ public class post extends AppCompatActivity {
                     Toast.makeText(post.this, "please fill all fields",
                             Toast.LENGTH_SHORT).show();
                 }else{
-                   postI d = new postI(n,da,dd,s,de,e,dat);
+                   postI d = new postI(n,da,dd,s,de,e,dat,currentUser.getEmail());
 
                      db.collection("orbituraries")
-                            .document(currentUser.getEmail())
-                             .collection("2019")
                              .document(n)
                             .set(d)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -87,7 +85,7 @@ public class post extends AppCompatActivity {
                              .addOnFailureListener(new OnFailureListener() {
                                  @Override
                                  public void onFailure(@NonNull Exception e) {
-                                     Toast.makeText(post.this, "User created succesfully",
+                                     Toast.makeText(post.this, "User created unsuccesfully" + e,
                                              Toast.LENGTH_LONG).show();
                                  }
                              });

@@ -1,9 +1,9 @@
 package com.example.groundzero.farewell;
 
 public class postI {
-    private String name, dod, dob, sex, description, eulogy, date;
+    private String name, dod, dob, sex, description, eulogy, date, user;
 
-    public postI(String name, String dod, String dob, String sex, String description, String eulogy, String date) {
+    public postI(String name, String dod, String dob, String sex, String description, String eulogy, String date,String user) {
         this.name = name;
         this.dob = dob;
         this.dod = dod;
@@ -11,6 +11,7 @@ public class postI {
         this.description = description;
         this.eulogy = eulogy;
         this.date = date;
+        this.user = user;
     }
 
     public postI() {
@@ -42,5 +43,8 @@ public class postI {
     }
     public String getDate() {
         return date;
+    }
+    public String getUser() {
+        return user;
     }
 }
