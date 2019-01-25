@@ -37,6 +37,11 @@ public class activity_signup extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
+    public void toast(String message){
+        Toast.makeText(activity_signup.this, message,
+                Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +76,7 @@ public class activity_signup extends AppCompatActivity {
                 progressDialog.show();
 
             if(us.equals("") || em.equals("") || pas.equals("") || ge.isEmpty() || lo.isEmpty() ){
-                Toast.makeText(activity_signup.this, "please fill all fields",
-                        Toast.LENGTH_SHORT).show();
+                toast("please fill all fields");
 
             }else{
 
@@ -93,27 +97,23 @@ public class activity_signup extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(activity_signup.this, "User created succesfully",
-                                                    Toast.LENGTH_LONG).show();
+                                            toast("user created successfully");
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(activity_signup.this, "user creation failed."+ e,
-                                                    Toast.LENGTH_LONG).show();
+                                            toast("user creation failed");
                                         }
                                     });
-                            Toast.makeText(activity_signup.this, "Authentication successful.",
-                                    Toast.LENGTH_SHORT).show();
+                            toast("authentication successful");
                             Intent I = new Intent(activity_signup.this,MainActivity.class);
                             startActivity(I);
                             finish();
 
                         } else {
                             progressDialog.hide();
-                            Toast.makeText(activity_signup.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            toast("authentication failed");
                         }
                     }
                 });

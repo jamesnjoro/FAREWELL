@@ -27,6 +27,11 @@ public class LoginActivity extends AppCompatActivity {
     private Toolbar mtoolbar;
     private ProgressDialog progressDialog;
 
+    public void toast(String message){
+        Toast.makeText(LoginActivity.this, message,
+                Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if(email.getText().toString().equals("") && password.getText().toString().equals("")){
 
-                    Toast.makeText(LoginActivity.this, "please fill in the email address.",
-                            Toast.LENGTH_SHORT).show();
+                    toast("please fill in the email address.");
                 }if(email.getText().toString().length()>1 && password.getText().toString().length()>1){
                     progressDialog.setTitle("loging in");
                     progressDialog.setMessage("Please as we log you into your account");
@@ -73,8 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                             }else{
                                 progressDialog.hide();
-                                Toast.makeText(LoginActivity.this, "incorrect credentials",
-                                        Toast.LENGTH_SHORT).show();
+                               toast("incorrect credentials");
                             }
                         }
                     });

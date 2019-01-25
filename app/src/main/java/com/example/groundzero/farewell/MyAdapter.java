@@ -9,14 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class MyAdapter extends FirestoreRecyclerAdapter<postI, MyAdapter.MyAdapterHolder> {
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+
+    onclickListener listener;
     public MyAdapter(@NonNull FirestoreRecyclerOptions<postI> options) {
         super(options);
     }
@@ -42,6 +40,27 @@ public class MyAdapter extends FirestoreRecyclerAdapter<postI, MyAdapter.MyAdapt
         n = (TextView)itemView.findViewById(R.id.textView15);
         dd= (TextView)itemView.findViewById(R.id.textView16);
         db= (TextView)itemView.findViewById(R.id.textView17);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = getAdapterPosition();
+                if(position!=RecyclerView.NO_POSITION && listener != null){
+                    listener.onItemClick(getSnapshots().getSnapshot(position),position);
+                }
+
+            }
+        });
     }
+
+    }
+
+    public interface onclickListener{
+        void onItemClick(DocumentSnapshot documentSnapshot,int position);
+
+
+        }
+    public void setOnclickListener(onclickListener listener){
+        this.listener = listener;
     }
 }

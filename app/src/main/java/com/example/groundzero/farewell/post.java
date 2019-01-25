@@ -32,6 +32,11 @@ public class post extends AppCompatActivity {
     DateFormat sdf= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     String dat;
 
+    public void toast(String message){
+        Toast.makeText(post.this, message,
+                Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,15 +83,13 @@ public class post extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(post.this, "User created succesfully",
-                                            Toast.LENGTH_LONG).show();
+                                    toast("User created succesfully");
                                 }
                             })
                              .addOnFailureListener(new OnFailureListener() {
                                  @Override
                                  public void onFailure(@NonNull Exception e) {
-                                     Toast.makeText(post.this, "User created unsuccesfully" + e,
-                                             Toast.LENGTH_LONG).show();
+                                   toast("User created unsuccesfully" + e);
                                  }
                              });
 

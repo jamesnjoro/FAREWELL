@@ -3,12 +3,8 @@ package com.example.groundzero.farewell;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,23 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -44,20 +31,21 @@ import com.google.firebase.firestore.Query;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth mAuth;
-    private Toolbar mtoolbar;
     CollectionReference coll;
     FirebaseDatabase firebaseDatabase;
     FirebaseFirestore dbR;
     FirebaseFirestore db;
     DocumentReference documentReference;
-    DatabaseReference databaseReference;
     RecyclerView recyclerView;
     InternetCheck check;
     TextView nameNav,emailNav;
     FirebaseUser currentUser;
     MyAdapter adapter;
 
-
+    public void toast(String message){
+        Toast.makeText(MainActivity.this, message,
+                Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +96,10 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             if(check.isConnected()){
-                Toast.makeText(MainActivity.this, "connection Successful",
-                        Toast.LENGTH_SHORT).show();
+               toast("connection successful");
 
             }else{
-                Toast.makeText(MainActivity.this, "Please connect to the internet",
-                        Toast.LENGTH_SHORT).show();
+                toast("connection unsuccessful");
             }
 
             displayC();
@@ -199,6 +185,13 @@ public class MainActivity extends AppCompatActivity
                 .build();
         adapter = new MyAdapter(options);
         recyclerView.setAdapter(adapter);
+        adapter.setOnclickListener(new MyAdapter.onclickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                postI p = documentSnapshot.toObject(postI.class);
+                toast(p.getName());
+            }
+        });
 
     }
 
