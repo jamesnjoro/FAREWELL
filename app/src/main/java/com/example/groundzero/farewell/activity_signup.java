@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +35,8 @@ public class activity_signup extends AppCompatActivity {
     user u;
     FirebaseFirestore db;
     String us,em,pas,ge,lo;
+
+    Button pho;
 
     private ProgressDialog progressDialog;
 
@@ -54,6 +57,17 @@ public class activity_signup extends AppCompatActivity {
         location = (EditText)findViewById(R.id.homeLocationI);
         butt = (Button)findViewById(R.id.button);
         db =FirebaseFirestore.getInstance();
+
+        pho = (Button)findViewById(R.id.PhotoUpload);
+
+        pho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent,2);
+            }
+        });
 
 
 

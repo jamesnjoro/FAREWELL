@@ -189,7 +189,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 postI p = documentSnapshot.toObject(postI.class);
-                toast(p.getName());
+                Intent intent = new Intent(MainActivity.this,obituary.class);
+                intent.putExtra("obituary",p);
+                startActivity(intent);
             }
         });
 

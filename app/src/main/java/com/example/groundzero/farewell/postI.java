@@ -1,6 +1,9 @@
 package com.example.groundzero.farewell;
 
-public class postI {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class postI implements Parcelable {
     private String name, dod, dob, sex, description, eulogy, date, user;
 
     public postI(String name, String dod, String dob, String sex, String description, String eulogy, String date,String user) {
@@ -17,6 +20,29 @@ public class postI {
     public postI() {
 
     }
+
+    protected postI(Parcel in) {
+        name = in.readString();
+        dod = in.readString();
+        dob = in.readString();
+        sex = in.readString();
+        description = in.readString();
+        eulogy = in.readString();
+        date = in.readString();
+        user = in.readString();
+    }
+
+    public static final Creator<postI> CREATOR = new Creator<postI>() {
+        @Override
+        public postI createFromParcel(Parcel in) {
+            return new postI(in);
+        }
+
+        @Override
+        public postI[] newArray(int size) {
+            return new postI[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -46,5 +72,22 @@ public class postI {
     }
     public String getUser() {
         return user;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(dod);
+        dest.writeString(dob);
+        dest.writeString(sex);
+        dest.writeString(description);
+        dest.writeString(eulogy);
+        dest.writeString(date);
+        dest.writeString(user);
     }
 }
