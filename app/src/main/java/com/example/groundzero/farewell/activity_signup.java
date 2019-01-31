@@ -1,16 +1,22 @@
 package com.example.groundzero.farewell;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,10 +26,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.System.currentTimeMillis;
 
 
 public class activity_signup extends AppCompatActivity {
@@ -34,7 +46,11 @@ public class activity_signup extends AppCompatActivity {
     FirebaseUser user;
     user u;
     FirebaseFirestore db;
-    String us,em,pas,ge,lo;
+    String us,em,pas,ge,lo,dppath;
+    FirebaseStorage storage;
+    StorageReference store;
+    ImageView view;
+    Uri uri;
 
     Button pho;
 
@@ -57,8 +73,11 @@ public class activity_signup extends AppCompatActivity {
         location = (EditText)findViewById(R.id.homeLocationI);
         butt = (Button)findViewById(R.id.button);
         db =FirebaseFirestore.getInstance();
-
+        storage= FirebaseStorage.getInstance();
         pho = (Button)findViewById(R.id.PhotoUpload);
+        store= storage.getReference("users_dp");
+        view = findViewById(R.id.img);
+
 
         pho.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +87,7 @@ public class activity_signup extends AppCompatActivity {
                 startActivityForResult(intent,2);
             }
         });
+
 
 
 
@@ -94,16 +114,35 @@ public class activity_signup extends AppCompatActivity {
 
             }else{
 
-                u = new user(us,em,ge,lo);
-
-
-
                 mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
+                            if(uri!=null){
+                                dppath = String.valueOf(currentTimeMillis()) + "." + getFileExtension(uri);
+                            }else
+                            {
+                                dppath = "no photo picked";
+                            }
+
+                          final  StorageReference file = store.child(dppath);
+                            file.putFile(uri)
+                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            toast("upload successful");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            toast("upload was unsuccessful");
+                                        }
+                                    });
+
+                            u = new user(us,em,ge,lo,dppath);
                             progressDialog.dismiss();
                             db.collection("users")
                                     .document(em)
@@ -140,4 +179,22 @@ public class activity_signup extends AppCompatActivity {
 
         }
                         );
-    }}
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 2 && resultCode==RESULT_OK){
+            uri = data.getData();
+            view.setImageURI(uri);
+        }
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+
+}

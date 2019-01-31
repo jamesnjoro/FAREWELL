@@ -14,8 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,6 +30,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.example.groundzero.farewell.MyAppGlideModule;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,6 +51,9 @@ public class MainActivity extends AppCompatActivity
     TextView nameNav,emailNav;
     FirebaseUser currentUser;
     MyAdapter adapter;
+    FirebaseStorage storage;
+    StorageReference store;
+
 
     public void toast(String message){
         Toast.makeText(MainActivity.this, message,
@@ -62,6 +75,8 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         check = new InternetCheck(this);
         coll = dbR.collection("orbituraries");
+        storage = FirebaseStorage.getInstance();
+        final ImageView image;
 
         if(currentUser==null){
             startScreen();
@@ -78,6 +93,7 @@ public class MainActivity extends AppCompatActivity
             View headerView = navigationView.getHeaderView(0);
             nameNav = (TextView) headerView.findViewById(R.id.userNav);
             emailNav =(TextView) headerView.findViewById(R.id.textView);
+            image = headerView.findViewById(R.id.imageView);
 
 
             emailNav.setText(currentUser.getEmail());
@@ -88,6 +104,12 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             nameNav.setText(documentSnapshot.getString("name"));
+                            store = storage.getReference("users_dp/" + documentSnapshot.getString("path"));
+                            GlideApp.with(MainActivity.this)
+                                    .load(store)
+                                    .into(image);
+
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
