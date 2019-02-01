@@ -2,8 +2,8 @@
     <string name="app_name">Farewell</string>
     <string name="REGISTER">register</string>
     <string name="USERNAME">username</string>
-    <string name="EMAIL">email</string>
-    <string name="PASSWORD">password</string>
+    <string name="EMAIL">Email</string>
+    <string name="PASSWORD">Password</string>
     <string name="LOGIN">login or register</string>
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
@@ -43,6 +43,7 @@
     <string name="location">Home Locaiton</string>
     <string name="Gender">Gender</string>
     <string name="photo">Upload photo</string>
+    <string name="SIGNIN">LOGIN</string>
 
 
 </resources>
