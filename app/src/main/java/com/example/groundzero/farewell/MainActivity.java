@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView= (RecyclerView)findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         check = new InternetCheck(this);
-        coll = dbR.collection("orbituraries");
+        coll = dbR.collection("obituaries");
         storage = FirebaseStorage.getInstance();
         final ImageView image;
 

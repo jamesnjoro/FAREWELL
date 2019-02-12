@@ -12,6 +12,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MyAdapter extends FirestoreRecyclerAdapter<postI, MyAdapter.MyAdapterHolder> {
 
     onclickListener listener;
@@ -22,8 +26,9 @@ public class MyAdapter extends FirestoreRecyclerAdapter<postI, MyAdapter.MyAdapt
     @Override
     protected void onBindViewHolder(@NonNull MyAdapterHolder holder, int position, @NonNull postI model) {
         holder.n.setText(model.getName());
-        holder.db.setText(model.getDob());
-        holder.dd.setText(model.getDod());
+        String text = "Age " +model.getAge()+"|" + model.getDod() + " - " + model.getDob();
+        holder.db.setText(text);
+        holder.dd.setText(model.getEulogy());
     }
 
     @NonNull

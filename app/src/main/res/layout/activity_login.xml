@@ -12,6 +12,8 @@
 
 
 
+
+
 <RelativeLayout
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -30,14 +32,17 @@
         android:src="@drawable/farewell"
         android:layout_centerHorizontal="true"
         />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/loginList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
-        android:layout_marginTop="10dp"
-
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
         >
 
         <TextView
@@ -155,6 +160,9 @@
 
     </RelativeLayout>
 
+    </ScrollView>
+
 </RelativeLayout>
+
 
 </RelativeLayout>

@@ -4,9 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class postI implements Parcelable {
-    private String name, dod, dob, sex, description, eulogy, date, user;
+    private String name, dod, dob, sex, description, eulogy, date, user,age;
 
-    public postI(String name, String dod, String dob, String sex, String description, String eulogy, String date,String user) {
+    public postI(String name, String dod, String dob, String sex, String description, String eulogy, String date,String user,String age) {
         this.name = name;
         this.dob = dob;
         this.dod = dod;
@@ -15,6 +15,7 @@ public class postI implements Parcelable {
         this.eulogy = eulogy;
         this.date = date;
         this.user = user;
+        this.age = age;
     }
 
     public postI() {
@@ -30,6 +31,7 @@ public class postI implements Parcelable {
         eulogy = in.readString();
         date = in.readString();
         user = in.readString();
+        age = in.readString();
     }
 
     public static final Creator<postI> CREATOR = new Creator<postI>() {
@@ -73,6 +75,9 @@ public class postI implements Parcelable {
     public String getUser() {
         return user;
     }
+    public String getAge() {
+        return age;
+    }
 
     @Override
     public int describeContents() {
@@ -89,5 +94,6 @@ public class postI implements Parcelable {
         dest.writeString(eulogy);
         dest.writeString(date);
         dest.writeString(user);
+        dest.writeString(age);
     }
 }

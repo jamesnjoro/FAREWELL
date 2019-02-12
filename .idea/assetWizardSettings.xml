@@ -62,7 +62,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="59" />
+                                                <entry key="scalingPercent" value="54" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -72,7 +72,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/farewell.jpg" />
+                                      <entry key="backgroundColor" value="4734a6" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/Video/farewell.png" />
+                                      <entry key="showGrid" value="true" />
                                     </map>
                                   </option>
                                 </PersistentState>

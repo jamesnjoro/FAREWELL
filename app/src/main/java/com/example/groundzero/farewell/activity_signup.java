@@ -9,10 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
@@ -38,11 +41,12 @@ import java.util.Map;
 import static java.lang.System.currentTimeMillis;
 
 
-public class activity_signup extends AppCompatActivity {
+public class activity_signup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private FirebaseAuth mAuth;
-    private EditText username, email,password,gender,location;
+    private EditText username, email,password,location;
+    Spinner gender;
+    ArrayAdapter<CharSequence> adapter;
     private Button butt;
-    private Toolbar mtoolbar;
     FirebaseUser user;
     user u;
     FirebaseFirestore db;
@@ -66,10 +70,10 @@ public class activity_signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
+        gender = findViewById(R.id.genderI);
         username = (EditText)findViewById(R.id.nameI);
         email = (EditText)findViewById(R.id.emailI);
         password = (EditText)findViewById(R.id.passwordI);
-        gender = (EditText)findViewById(R.id.genderI);
         location = (EditText)findViewById(R.id.homeLocationI);
         butt = (Button)findViewById(R.id.button);
         db =FirebaseFirestore.getInstance();
@@ -77,6 +81,11 @@ public class activity_signup extends AppCompatActivity {
         pho = (Button)findViewById(R.id.PhotoUpload);
         store= storage.getReference("users_dp");
         view = findViewById(R.id.img);
+
+        adapter = ArrayAdapter.createFromResource(this,R.array.genders,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gender.setAdapter(adapter);
+        gender.setOnItemSelectedListener(this);
 
 
         pho.setOnClickListener(new View.OnClickListener() {
@@ -99,20 +108,21 @@ public class activity_signup extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
+
                 us=username.getText().toString();
                 em = email.getText().toString();
                 pas= password.getText().toString();
-                ge= gender.getText().toString();
                 lo = location.getText().toString();
+
+
+            if(us.equals("") || em.equals("") || pas.equals("") || lo.isEmpty() ){
+                toast("please fill all fields");
+
+            }else{
                 progressDialog.setTitle("Creating user");
                 progressDialog.setMessage("Account is being created please wait.");
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
-
-            if(us.equals("") || em.equals("") || pas.equals("") || ge.isEmpty() || lo.isEmpty() ){
-                toast("please fill all fields");
-
-            }else{
 
                 mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -197,4 +207,13 @@ public class activity_signup extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        ge = parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
