@@ -44,11 +44,16 @@
     <string name="Gender">Gender</string>
     <string name="photo">Upload photo</string>
     <string name="SIGNIN">LOGIN</string>
-    
+
     <string-array name="genders">
         <item>male</item>
         <item>female</item>
     </string-array>
+    <string name="tab_text_1">DECEASED</string>
+    <string name="tab_text_2">SERVICE</string>
+    <string name="tab_text_3">FUNERAL</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_obituary">obituary</string>
 
 
 </resources>
