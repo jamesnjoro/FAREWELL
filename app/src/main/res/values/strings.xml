@@ -44,6 +44,8 @@
     <string name="Gender">Gender</string>
     <string name="photo">Upload photo</string>
     <string name="SIGNIN">LOGIN</string>
+    <string name="Age">Age</string>
+    <string name="Save">Save</string>
 
     <string-array name="genders">
         <item>male</item>
