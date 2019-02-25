@@ -132,25 +132,26 @@ public class activity_signup extends AppCompatActivity implements AdapterView.On
                         if(task.isSuccessful()){
                             if(uri!=null){
                                 dppath = String.valueOf(currentTimeMillis()) + "." + getFileExtension(uri);
+                                final  StorageReference file = store.child(dppath);
+                                file.putFile(uri)
+                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                toast("upload successful");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                toast("upload was unsuccessful");
+                                            }
+                                        });
                             }else
                             {
-                                dppath = "no photo picked";
-                            }
 
-                          final  StorageReference file = store.child(dppath);
-                            file.putFile(uri)
-                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                            toast("upload successful");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            toast("upload was unsuccessful");
-                                        }
-                                    });
+                                    dppath = "noimage.png";
+
+                            }
 
                             u = new user(us,em,ge,lo,dppath);
                             progressDialog.dismiss();

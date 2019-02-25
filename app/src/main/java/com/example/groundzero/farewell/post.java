@@ -14,15 +14,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.style.Circle;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
@@ -68,11 +72,15 @@ public class post extends AppCompatActivity implements AdapterView.OnItemSelecte
         currentUser = auth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
         sex =findViewById(R.id.editText10);
-
         dob.setMaxValue(2019);
         dob.setMinValue(1900);
         dob.setWrapSelectorWheel(false);
         dob.getMaxValue();
+        final ProgressBar progressBar;
+        Circle Circle;
+        progressBar = findViewById(R.id.spin_kit4);
+        Circle = new Circle();
+        progressBar.setIndeterminateDrawable(Circle);
 
 
         adapter = ArrayAdapter.createFromResource(this,R.array.genders,android.R.layout.simple_spinner_item);
@@ -94,7 +102,8 @@ public class post extends AppCompatActivity implements AdapterView.OnItemSelecte
             @Override
             public void onClick(View v) {
 
-
+                button2.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 n = name.getText().toString();
                 da = Integer.toString(dob.getValue());
                 dd = dod.getText().toString();
@@ -104,10 +113,14 @@ public class post extends AppCompatActivity implements AdapterView.OnItemSelecte
                 age = Dyear - dob.getValue();
                 String Sage = Integer.toString(age);
                 if(n.equals("") || da.equals("") || dd.equals("") || s.equals("") || de.equals("") || e.equals("") ) {
+                    button2.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(post.this, "please fill all fields",
                             Toast.LENGTH_SHORT).show();
+
                 }else{
-                   postI d = new postI(n,da,dd,s,de,e,dat,currentUser.getEmail(),Sage);
+
+                   postI d = new postI(n,da,dd,s,de,e,dat,currentUser.getEmail(),Sage,"noimage.png");
 
                      db.collection("obituaries")
                              .document(n)
@@ -116,18 +129,31 @@ public class post extends AppCompatActivity implements AdapterView.OnItemSelecte
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     toast("User created succesfully");
+                                    button2.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.INVISIBLE);
                                 }
                             })
                              .addOnFailureListener(new OnFailureListener() {
                                  @Override
                                  public void onFailure(@NonNull Exception e) {
                                    toast("User created unsuccesfully" + e);
+                                     button2.setVisibility(View.VISIBLE);
+                                     progressBar.setVisibility(View.INVISIBLE);
                                  }
                              });
 
+                    DocumentReference docRef = db.collection("obituaries").document(n);
+                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            postI post = documentSnapshot.toObject(postI.class);
+                            Intent I = new Intent(post.this,obituary.class);
+                            I.putExtra("o", post);
+                            startActivity(I);
+                            finish();
+                        }
+                    });
 
-                Intent I = new Intent(post.this,MainActivity.class);
-                startActivity(I);
             }}
 
 

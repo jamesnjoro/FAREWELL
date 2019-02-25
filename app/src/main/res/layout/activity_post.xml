@@ -221,13 +221,22 @@
                 android:layout_marginTop="30dp">
             <Button
                 android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:text="@string/post"
                 android:layout_centerHorizontal="true"
-
-
                 />
+                <com.github.ybq.android.spinkit.SpinKitView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/spin_kit4"
+                    style="@style/SpinKitView.Circle"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    app:SpinKit_Color="@color/colorAccent"
+                    android:visibility="invisible"
+                    />
             </RelativeLayout>
 
         </android.support.design.widget.TextInputLayout>
