@@ -46,6 +46,19 @@
     <string name="SIGNIN">LOGIN</string>
     <string name="Age">Age</string>
     <string name="Save">Save</string>
+    <string name="dateS">Date of service commence</string>
+    <string name="timeS">Time to start</string>
+    <string name="timeSt">Time to stop</string>
+    <string name="city">City</string>
+    <string name="town">Town</string>
+    <string name="street">Street</string>
+    <string name="Building">Building</string>
+    <string name="date">Date of Funeral</string>
+    <string name="meetingP">meeting place: City \n Town \n Street</string>
+    <string name="FuneralP">Funeral place: CIty \n Town \n Funeral Home</string>
+    <string name="gps">GPS coordinates</string>
+    <string name="contribution">Mpesa paybill \n Bank Account \n Paypal</string>
+    <string name="time">Time</string>
 
     <string-array name="genders">
         <item>male</item>
@@ -54,7 +67,6 @@
     <string name="tab_text_1">DECEASED</string>
     <string name="tab_text_2">SERVICE</string>
     <string name="tab_text_3">FUNERAL</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_obituary">obituary</string>
 
 

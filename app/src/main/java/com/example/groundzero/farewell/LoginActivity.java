@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.github.ybq.android.spinkit.style.FadingCircle;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,11 +87,14 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent i = new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(i);
                                 finish();
-                            }else{
-                                but.setVisibility(View.VISIBLE);
-                                progressBar  .setVisibility(View.INVISIBLE);
-                               toast("incorrect credentials");
                             }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            but.setVisibility(View.VISIBLE);
+                            progressBar  .setVisibility(View.INVISIBLE);
+                            toast(e.getMessage());
                         }
                     });
 

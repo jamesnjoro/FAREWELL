@@ -7,10 +7,166 @@
     android:layout_height="match_parent"
     tools:context=".service">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/relup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+        </Spinner>
+    </RelativeLayout>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relup"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/cardup"
+       >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dateS"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardup"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/linup">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="0.8">
+
+            <TextView
+                android:id="@+id/serviceStart"
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:hint="@string/timeS"
+                android:textSize="20sp" />
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=" to "
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_weight="0.4"/>
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/serviceStop"
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:hint="@string/timeSt"
+                android:textSize="20sp" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card1"
+        android:layout_below="@+id/linup"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:id="@+id/city"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:hint="@string/city"
+            tools:fontFamily="@font/open_sans"
+            tools:textSize="30sp"
+            android:background="@null"/>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card2"
+        android:layout_below="@+id/card1"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:id="@+id/town"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/town"
+            android:textAlignment="center"
+            tools:fontFamily="@font/open_sans"
+            tools:textSize="30sp"
+            android:background="@null"/>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/card3"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card2"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:id="@+id/street"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/street"
+            android:textAlignment="center"
+            tools:fontFamily="@font/open_sans"
+            tools:textSize="30sp"
+            android:background="@null"/>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/card4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card3"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:id="@+id/building"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:hint="@string/Building"
+            tools:fontFamily="@font/open_sans"
+            android:background="@null"
+            tools:textSize="30sp" />
+    </android.support.v7.widget.CardView>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/EMAIL"
-        />
+        android:layout_below="@+id/card4"
+        android:layout_centerHorizontal="true"
+        android:text="@string/Save"/>
+
+
 
 </RelativeLayout>

@@ -72,7 +72,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="4734a6" />
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="a6990f" />
                                       <entry key="foregroundImage" value="$USER_HOME$/Downloads/Video/farewell.png" />
                                       <entry key="showGrid" value="true" />
                                     </map>
@@ -130,6 +131,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>

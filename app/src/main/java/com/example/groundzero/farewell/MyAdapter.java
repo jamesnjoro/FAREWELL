@@ -44,6 +44,7 @@ public class MyAdapter extends FirestoreRecyclerAdapter<postI, MyAdapter.MyAdapt
             StorageReference store = storage.getReference("deceased_pics/" + model.getPhoto());
             GlideApp.with(holder.view.getContext())
                     .load(store)
+                    .placeholder(R.drawable.noimage)
                     .into(holder.view);
         }
 

@@ -7,10 +7,133 @@
     android:layout_height="match_parent"
     tools:context=".funeral">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dod"
-      />
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:id="@+id/Fcard1">
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="24sp"
+            tools:fontFamily="@font/open_sans"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:hint="@string/date"/>
 
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Fcard1"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/linup">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="0.8">
+
+            <TextView
+                android:id="@+id/MeetingP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/meetingP"
+                android:lines="3"
+                tools:fontFamily="@font/open_sans"
+                android:textSize="20sp" />
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=" at "
+            tools:fontFamily="@font/open_sans"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_weight="0.4"/>
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/meetingT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/time"
+                tools:fontFamily="@font/open_sans"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/linup"
+        android:id="@+id/Fcard2">
+        <EditText
+            android:id="@+id/Fmeet"
+            android:layout_width="match_parent"
+            android:textSize="24sp"
+            android:lines="3"
+            android:layout_height="wrap_content"
+            tools:fontFamily="@font/open_sans"
+            android:hint="@string/FuneralP"
+            android:background="@null"/>
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Fcard2"
+        android:weightSum="3"
+        android:id="@+id/put">
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:id="@+id/Fcard3">
+            <EditText
+                android:id="@+id/gpsL"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/gps"
+                tools:fontFamily="@font/open_sans"
+                android:background="@null"/>
+
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:layout_weight="1"
+            tools:fontFamily="@font/open_sans"
+            android:layout_margin="10dp"/>
+    </LinearLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/put"
+        android:id="@+id/Fcard4">
+        <EditText
+            android:id="@+id/contri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:lines="4"
+            tools:fontFamily="@font/open_sans"
+            android:hint="@string/contribution"
+            android:background="@null"/>
+
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

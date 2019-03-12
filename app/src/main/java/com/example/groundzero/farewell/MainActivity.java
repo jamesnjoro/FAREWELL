@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity
                             store = storage.getReference("users_dp/" + documentSnapshot.getString("path"));
                             GlideApp.with(MainActivity.this)
                                     .load(store)
+                                    .placeholder(R.drawable.noimage)
                                     .into(image);
 
 
