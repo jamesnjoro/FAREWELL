@@ -14,6 +14,7 @@
         android:layout_margin="10dp"
         android:id="@+id/Fcard1">
         <TextView
+            android:id="@+id/funDate"
             android:layout_width="match_parent"
             android:textSize="24sp"
             tools:fontFamily="@font/open_sans"

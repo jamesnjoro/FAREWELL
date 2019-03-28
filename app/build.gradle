@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.groundzero.farewell"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -51,6 +51,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
 
 
 
