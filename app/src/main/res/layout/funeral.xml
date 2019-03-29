@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    >
+    xmlns:android="http://schemas.android.com/apk/res/android" />
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".funeral">
 
     <android.support.v7.widget.CardView
@@ -43,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/meetingP"
-                android:lines="3"
                 tools:fontFamily="@font/open_sans"
                 android:textSize="20sp" />
         </android.support.v7.widget.CardView>
@@ -72,27 +76,11 @@
                 android:textSize="20sp" />
         </android.support.v7.widget.CardView>
     </LinearLayout>
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/linup"
-        android:id="@+id/Fcard2">
-        <EditText
-            android:id="@+id/Fmeet"
-            android:layout_width="match_parent"
-            android:textSize="24sp"
-            android:lines="3"
-            android:layout_height="wrap_content"
-            tools:fontFamily="@font/open_sans"
-            android:hint="@string/FuneralP"
-            android:background="@null"/>
-    </android.support.v7.widget.CardView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Fcard2"
+        android:layout_below="@+id/linup"
         android:weightSum="3"
         android:id="@+id/put">
         <android.support.v7.widget.CardView
@@ -125,7 +113,41 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:layout_below="@+id/put"
+        android:id="@+id/Fcard2">
+        <EditText
+            android:id="@+id/fcity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            tools:fontFamily="@font/open_sans"
+            android:hint="@string/city"
+            android:background="@null"/>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/Fcard2"
         android:id="@+id/Fcard4">
+        <EditText
+            android:id="@+id/ftown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            tools:fontFamily="@font/open_sans"
+            android:hint="@string/town"
+            android:background="@null"/>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/Fcard4"
+        android:id="@+id/Fcard5">
         <EditText
             android:id="@+id/contri"
             android:layout_width="match_parent"
@@ -138,3 +160,4 @@
 
     </android.support.v7.widget.CardView>
 </RelativeLayout>
+</ScrollView>

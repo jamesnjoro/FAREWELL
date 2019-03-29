@@ -54,7 +54,7 @@
     <string name="street">Street</string>
     <string name="Building">Building</string>
     <string name="date">Date of Funeral</string>
-    <string name="meetingP">meeting place: City \n Town \n Street</string>
+    <string name="meetingP">Funeral location</string>
     <string name="FuneralP">Funeral place: CIty \n Town \n Funeral Home</string>
     <string name="gps">GPS coordinates</string>
     <string name="contribution">Mpesa paybill \n Bank Account \n Paypal</string>

@@ -3,13 +3,21 @@ package com.example.groundzero.farewell;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -17,8 +25,13 @@ import java.util.Calendar;
 
 
 public class service extends Fragment {
-    private TextView date;
-    private TextView startT,stopT;
+    private TextView date,startT,stopT;;
+    private Button button;
+    private EditText city,town,street,building;
+    postI p;
+    FirebaseFirestore store;
+
+
     private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -62,9 +75,16 @@ public class service extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.service, container, false);
+        p = getArguments().getParcelable("orbi");
         date = rootView.findViewById(R.id.Sdate);
         startT = rootView.findViewById(R.id.serviceStart);
         stopT = rootView.findViewById(R.id.serviceStop);
+        button = rootView.findViewById(R.id.saves);
+        city = rootView.findViewById(R.id.city);
+        town = rootView.findViewById(R.id.town);
+        street= rootView.findViewById(R.id.street);
+        building = rootView.findViewById(R.id.building);
+        store = FirebaseFirestore.getInstance();
         stopT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +107,42 @@ public class service extends Fragment {
                 dialog.show();
             }
         });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dateS,TimeStart,TimeStop,city1,town1,street1,building1,deceasedN;
+                dateS = date.getText().toString();
+                TimeStart = startT.getText().toString();
+                TimeStop = stopT.getText().toString();
+                city1 = city.getText().toString();
+                town1 = town.getText().toString();
+                street1 = street.getText().toString();
+                building1 = building.getText().toString();
+                deceasedN = p.getName();
+
+                if(dateS.isEmpty() || TimeStart.isEmpty() || TimeStop.isEmpty() || city1.isEmpty() || town1.isEmpty() || street1.isEmpty() || building1.isEmpty() || deceasedN.isEmpty()){
+                    Toast.makeText(getContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                }else{
+                    serviceClass s = new serviceClass(dateS,TimeStart,TimeStop,city1,town1,street1,building1,deceasedN);
+                    store.collection("service")
+                            .document(deceasedN)
+                            .set(s)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "uploaded", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            }
+        });
+
 
         return rootView;
     }
