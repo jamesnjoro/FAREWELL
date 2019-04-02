@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -42,10 +44,12 @@ public class obituary extends AppCompatActivity {
         em = in.getStringExtra("email");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        if(user.getEmail()==post.getUser()){
+        if(user.getEmail().contentEquals(post.getUser())){
             owner = "yes";
+            Toast.makeText(obituary.this, "yes", Toast.LENGTH_SHORT).show();
         }else{
             owner = "no";
+            Toast.makeText(obituary.this, "no", Toast.LENGTH_SHORT).show();
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obituary);

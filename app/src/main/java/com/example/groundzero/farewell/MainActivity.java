@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity
         db = FirebaseFirestore.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         currentUser = mAuth.getCurrentUser();
-        recyclerView= (RecyclerView)findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         check = new InternetCheck(this);
         coll = dbR.collection("obituaries");
         storage = FirebaseStorage.getInstance();
@@ -125,7 +123,8 @@ public class MainActivity extends AppCompatActivity
                 toast("connection unsuccessful");
             }
 
-            displayC();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder,
+                    new orbituaryFragment()).commit();
 
         }
 
@@ -187,7 +186,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder,
+                    new orbituaryFragment()).commit();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -201,49 +201,11 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void displayC() {
-        Query q = coll.orderBy("date", Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<postI> options = new FirestoreRecyclerOptions.Builder<postI>()
-                .setQuery(q,postI.class)
-                .build();
-        adapter = new MyAdapter(options);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnclickListener(new MyAdapter.onclickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                postI p = documentSnapshot.toObject(postI.class);
-                Intent in = new Intent(MainActivity.this,obituary.class);
-                in.putExtra("o", p);
-                startActivity(in);
-            }
-        });
-
-    }
 
     public void add(View view){
         Intent I = new Intent(MainActivity.this,post.class);
         startActivity(I);
     }
-    @Override
-
-    public void onStart() {
-        super.onStart();
-
-        adapter.startListening();
-
-
-
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-
-    }
-
-
-
-
 }
 
 

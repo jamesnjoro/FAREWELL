@@ -39,13 +39,15 @@ public class deceased extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
     FirebaseStorage storage;
-    StorageReference store, storeget;
+    StorageReference store, storeget,memstore;
     ImageView view,view2;
     Uri uri;
     postI p;
-    Button pic, save;
+    Button pic, save,memorialmake;
     EditText name,age,date,description,eulogy;
     String dpath;
+    FirebaseFirestore  dbs;
+    FirebaseStorage storages;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class deceased extends Fragment {
         view = rootView.findViewById(R.id.decimage);
         view2 = rootView.findViewById(R.id.decimage2);
         save = rootView.findViewById(R.id.save);
+        memorialmake = rootView.findViewById(R.id.memorialmake);
         db =FirebaseFirestore.getInstance();
         storage= FirebaseStorage.getInstance();
         final ProgressBar progressBar;
@@ -160,6 +163,14 @@ public class deceased extends Fragment {
             }
         });
 
+        memorialmake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbs = FirebaseFirestore.getInstance();
+                storages = FirebaseStorage.getInstance();
+            }
+        });
+
         return rootView;
     }
 
@@ -178,6 +189,7 @@ public class deceased extends Fragment {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
+
 
 
 }
