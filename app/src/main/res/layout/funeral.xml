@@ -11,6 +11,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".funeral">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/r2">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -43,7 +47,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="0.8">
 
-            <TextView
+            <EditText
                 android:id="@+id/MeetingP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,6 +124,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             tools:fontFamily="@font/open_sans"
+            android:textAlignment="center"
             android:hint="@string/city"
             android:background="@null"/>
 
@@ -136,6 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
+            android:textAlignment="center"
             tools:fontFamily="@font/open_sans"
             android:hint="@string/town"
             android:background="@null"/>
@@ -148,16 +154,89 @@
         android:layout_margin="10dp"
         android:layout_below="@+id/Fcard4"
         android:id="@+id/Fcard5">
-        <EditText
-            android:id="@+id/contri"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:lines="4"
-            tools:fontFamily="@font/open_sans"
-            android:hint="@string/contribution"
-            android:background="@null"/>
-
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="mpesa"
+                    android:background="@drawable/bn_bg"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:id="@+id/mpesa"
+                    android:background="@null"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:text="Bank acc"
+                    android:background="@drawable/bn_bg"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:id="@+id/bank"
+                    android:background="@null"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:text="Paypal"
+                    android:background="@drawable/bn_bg"/>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:id="@+id/paypal"
+                    android:background="@null"/>
+            </LinearLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Fsave"
+        android:text="@string/Save"
+        android:layout_below="@id/Fcard5"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/NoD"
+    android:text="No Data entered"
+    android:textSize="50sp"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:visibility="invisible"/>
 </RelativeLayout>
 </ScrollView>

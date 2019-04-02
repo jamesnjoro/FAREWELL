@@ -11,25 +11,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.sql.Time;
 import java.text.DateFormat;
 import java.util.Calendar;
 
 
 public class service extends Fragment {
-    private TextView date,startT,stopT;;
+    private TextView date,startT,stopT,noD;
     private Button button;
-    private EditText city,town,street,building;
+    private EditText city,town,street,building,gps;
     postI p;
-    FirebaseFirestore store;
+    FirebaseFirestore store,view;
+    DocumentReference ref;
+    RelativeLayout r;
+    String userE;
+
 
 
     private DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
@@ -71,19 +75,7 @@ public class service extends Fragment {
             stopT.setText(t);
         }
     };
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.service, container, false);
-        p = getArguments().getParcelable("orbi");
-        date = rootView.findViewById(R.id.Sdate);
-        startT = rootView.findViewById(R.id.serviceStart);
-        stopT = rootView.findViewById(R.id.serviceStop);
-        button = rootView.findViewById(R.id.saves);
-        city = rootView.findViewById(R.id.city);
-        town = rootView.findViewById(R.id.town);
-        street= rootView.findViewById(R.id.street);
-        building = rootView.findViewById(R.id.building);
+    public void editActivity(){
         store = FirebaseFirestore.getInstance();
         stopT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +115,7 @@ public class service extends Fragment {
                 if(dateS.isEmpty() || TimeStart.isEmpty() || TimeStop.isEmpty() || city1.isEmpty() || town1.isEmpty() || street1.isEmpty() || building1.isEmpty() || deceasedN.isEmpty()){
                     Toast.makeText(getContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
                 }else{
-                    serviceClass s = new serviceClass(dateS,TimeStart,TimeStop,city1,town1,street1,building1,deceasedN);
+                    serviceClass s = new serviceClass(dateS,TimeStart,TimeStop,city1,town1,street1,building1,deceasedN,p.getUser(),gps.getText().toString());
                     store.collection("service")
                             .document(deceasedN)
                             .set(s)
@@ -142,6 +134,69 @@ public class service extends Fragment {
                 }
             }
         });
+    }
+
+    public void viewActivity(){
+
+
+        switch (userE){
+            case "yes":
+                Toast.makeText(getContext(), p.getUser(), Toast.LENGTH_SHORT).show();
+                editActivity();
+                break;
+            case "no":
+                r.setVisibility(View.INVISIBLE);
+                noD.setVisibility(View.VISIBLE);
+                break;
+        }
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.service, container, false);
+        p = getArguments().getParcelable("orbi");
+        date = rootView.findViewById(R.id.Sdate);
+        startT = rootView.findViewById(R.id.serviceStart);
+        stopT = rootView.findViewById(R.id.serviceStop);
+        button = rootView.findViewById(R.id.saves);
+        city = rootView.findViewById(R.id.city);
+        town = rootView.findViewById(R.id.town);
+        street= rootView.findViewById(R.id.street);
+        building = rootView.findViewById(R.id.building);
+        gps = rootView.findViewById(R.id.gpsS);
+        view = FirebaseFirestore.getInstance();
+        noD = rootView.findViewById(R.id.noD);
+        r = rootView.findViewById(R.id.view);
+        userE = getArguments().getString("owner");
+        ref = view.collection("service").document(p.getName());
+        ref.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.getString("dateS") == null){
+                            viewActivity();
+                        }else {
+                            serviceClass sun = documentSnapshot.toObject(serviceClass.class);
+                            date.setText(sun.getDateS());
+                            startT.setText(sun.getTimeStart());
+                            stopT.setText(sun.getTimeStop());
+                            gps.setText(sun.getGps());
+                            city.setText(sun.getCity());
+                            town.setText(sun.getTown());
+                            street.setText(sun.getStreet());
+                            building.setText(sun.getBuilding());
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                      viewActivity();
+                    }
+                });
 
 
         return rootView;

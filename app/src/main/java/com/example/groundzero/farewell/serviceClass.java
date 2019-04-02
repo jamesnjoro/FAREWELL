@@ -1,9 +1,9 @@
 package com.example.groundzero.farewell;
 
 public class serviceClass {
-    String dateS,timeStart,timeStop,city,town,street,building,deceasedN;
+   private String dateS,timeStart,timeStop,city,town,street,building,deceasedN,email,gps;
 
-    public serviceClass(String dateS, String timeStart, String timeStop, String city, String town, String street, String building, String deceasedN) {
+    public serviceClass(String dateS, String timeStart, String timeStop, String city, String town, String street, String building, String deceasedN,String email,String gps) {
         this.dateS = dateS;
         this. timeStart = timeStart;
         this.timeStop = timeStop;
@@ -12,6 +12,8 @@ public class serviceClass {
         this.street = street;
         this.building = building;
         this.deceasedN = deceasedN;
+        this.email = email;
+        this.gps = gps;
     }
 
     public serviceClass() {
@@ -47,6 +49,14 @@ public class serviceClass {
 
     public String getDeceasedN() {
         return deceasedN;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getGps() {
+        return gps;
     }
 }
 

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
     MyAdapter adapter;
     FirebaseStorage storage;
     StorageReference store;
-
+    String email;
 
     public void toast(String message){
         Toast.makeText(MainActivity.this, message,

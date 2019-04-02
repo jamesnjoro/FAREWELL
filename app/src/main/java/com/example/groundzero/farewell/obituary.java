@@ -10,14 +10,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class obituary extends AppCompatActivity {
 
+    FirebaseAuth auth;
+    FirebaseUser user;
+    String owner;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -33,11 +33,20 @@ public class obituary extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     postI post;
+    String em;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent in = getIntent();
         post = in.getParcelableExtra("o");
+        em = in.getStringExtra("email");
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        if(user.getEmail()==post.getUser()){
+            owner = "yes";
+        }else{
+            owner = "no";
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obituary);
 
@@ -79,6 +88,7 @@ public class obituary extends AppCompatActivity {
         public Fragment getItem(int position) {
           Bundle bundle = new Bundle();
           bundle.putParcelable("orbi",post);
+          bundle.putString("owner",owner);
             switch(position){
                 case 0:
                     deceased de = new deceased();
