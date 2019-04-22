@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,8 @@ public class deceased extends Fragment {
     ImageView view,view2;
     Uri uri;
     postI p;
-    Button pic, save,memorialmake;
+    Button pic, save;
+    FloatingActionButton memorialmake;
     EditText name,age,date,description,eulogy;
     String dpath;
     FirebaseFirestore  dbs;
@@ -168,6 +170,23 @@ public class deceased extends Fragment {
             public void onClick(View v) {
                 dbs = FirebaseFirestore.getInstance();
                 storages = FirebaseStorage.getInstance();
+                Memorial me = new Memorial(p.getName(), p.getUser(), p.getDescription(), p.getEulogy(),p.getPhoto(),p.getDob(), p.getDod());
+                dbs.collection("memorials")
+                        .document(p.getName())
+                        .set(me)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getContext(), "memorial created", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), "memorial creation Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
             }
         });
 

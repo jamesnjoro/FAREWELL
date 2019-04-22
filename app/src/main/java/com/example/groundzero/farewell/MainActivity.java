@@ -189,6 +189,8 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder,
                     new orbituaryFragment()).commit();
         } else if (id == R.id.nav_gallery) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder,
+                    new memorialFragment()).commit();
 
         } else if (id == R.id.nav_slideshow) {
 

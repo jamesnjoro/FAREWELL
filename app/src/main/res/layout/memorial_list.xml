@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/noimage"
+            android:id="@+id/memPhoto"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/memPhoto"
+            android:layout_marginStart="50dp"
+            android:id="@+id/memName"
+            android:textSize="25sp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/named"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/memDate"
+            android:layout_below="@+id/memName"
+            android:layout_toEndOf="@+id/memPhoto"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/date"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
