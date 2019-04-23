@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="275dp"
+    android:layout_height="370dp"
+    android:layout_gravity="center">
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:id="@+id/poppic"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/t20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/poppic"
+        android:text="@string/description"/>
+
+    <EditText
+        android:id="@+id/photodescription"
+        android:layout_marginTop="20dp"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t20"
+        android:layout_toEndOf="@+id/t20"
+        android:lines="3"
+        android:hint="@string/description" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/photodescription"
+        android:weightSum="2"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/photosave"
+            android:text="@string/Save"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/photocancel"
+            android:text="cancel"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

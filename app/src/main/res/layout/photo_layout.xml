@@ -2,7 +2,15 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+   <TextView
+       android:id="@+id/tup"
+       android:layout_width="match_parent"
+       android:layout_height="30dp"
+       android:text="Click here to add photo"
+       android:textAlignment="center"/>
    <android.support.v7.widget.RecyclerView
+       android:id="@+id/photoRecycler"
+       android:layout_below="@+id/tup"
        android:layout_width="match_parent"
        android:layout_height="match_parent">
 
