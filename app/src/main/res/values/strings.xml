@@ -68,6 +68,9 @@
     <string name="tab_text_2">SERVICE</string>
     <string name="tab_text_3">FUNERAL</string>
     <string name="title_activity_obituary">obituary</string>
+    <string name="Details">Details</string>
+    <string name="Stories">Stories</string>
+    <string name="Photos">photos</string>
 
 
 </resources>

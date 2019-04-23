@@ -40,7 +40,7 @@ public class memorialFragment extends Fragment {
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Memorial m = documentSnapshot.toObject(Memorial.class);
                 Intent in = new Intent(getActivity(),memorialView.class);
-                in.putExtra("o", m);
+                in.putExtra("m", m);
                 startActivity(in);
             }
         });
