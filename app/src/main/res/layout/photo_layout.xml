@@ -12,7 +12,8 @@
        android:id="@+id/photoRecycler"
        android:layout_below="@+id/tup"
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:layout_marginBottom="60dp">
 
    </android.support.v7.widget.RecyclerView>
 

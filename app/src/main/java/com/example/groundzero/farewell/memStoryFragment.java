@@ -1,5 +1,6 @@
 package com.example.groundzero.farewell;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -30,7 +32,7 @@ import static java.lang.System.currentTimeMillis;
 
 public class memStoryFragment extends Fragment {
     EditText story;
-    Button save;
+    Button save,cancel;
     Memorial m;
     FirebaseAuth auth;
     FirebaseUser currentUser;
@@ -42,16 +44,34 @@ public class memStoryFragment extends Fragment {
     Query phot;
     storyAdapter adapter;
     RecyclerView recyclerView;
+    Dialog storytell;
+    TextView click;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        storytell = new Dialog(getActivity());
+        storytell.setContentView(R.layout.add_story);
         currentUser = auth.getCurrentUser();
         m = getArguments().getParcelable("mem");
         View rootView = inflater.inflate(R.layout.story_layout, container, false);
         recyclerView = rootView.findViewById(R.id.storyRecycler);
+        cancel = storytell.findViewById(R.id.photocancell);
         collect = db.collection("story");
+        click = rootView.findViewById(R.id.storytel);
+        click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storytell.show();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storytell.dismiss();
+            }
+        });
         phot =collect.whereEqualTo("deceased",m.getName());
         FirestoreRecyclerOptions<story> options = new FirestoreRecyclerOptions.Builder<story>()
                 .setQuery(phot,story.class)
@@ -61,8 +81,9 @@ public class memStoryFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        story = rootView.findViewById(R.id.storytell);
-        save = rootView.findViewById(R.id.savestory);
+        story = storytell.findViewById(R.id.storytell);
+        save = storytell.findViewById(R.id.savestory);
+        cancel = storytell.findViewById(R.id.photocancell);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,12 +96,14 @@ public class memStoryFragment extends Fragment {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getActivity(), "uploaded", Toast.LENGTH_SHORT).show();
+                                storytell.dismiss();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+                                storytell.dismiss();
                             }
                         });
             }

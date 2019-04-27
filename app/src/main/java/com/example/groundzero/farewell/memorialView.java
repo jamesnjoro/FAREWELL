@@ -36,6 +36,7 @@ public class memorialView extends AppCompatActivity {
         storage = store.getReference("deceased_pics/" + m.getPhoto());
         GlideApp.with(memorialView.this)
                 .load(storage)
+                .centerCrop()
                 .placeholder(R.drawable.noimage)
                 .into(view);
 

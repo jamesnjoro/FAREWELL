@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="250dp">
+    <TextView
+        android:id="@+id/meup"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share as story"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/storytell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meup"
+        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:hint="Write you story"
+        android:lines="5" />
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/storytell"
+        android:weightSum="2"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/savestory"
+            android:text="@string/Save"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/photocancell"
+            android:text="cancel"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
