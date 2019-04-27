@@ -3,8 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/storyRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="-50dp">
 
     </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/storyRecycler"
+        android:layout_marginTop="-150dp"
+        android:weightSum="7">
+
+        <EditText
+            android:id="@+id/storytell"
+            android:layout_marginStart="20dp"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            android:hint="@string/description" />
+
+        <Button
+            android:id="@+id/savestory"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:drawableBottom="@drawable/ic_menu_send" />
+    </LinearLayout>
 </RelativeLayout>

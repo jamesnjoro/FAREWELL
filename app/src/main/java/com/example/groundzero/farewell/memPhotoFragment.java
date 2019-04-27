@@ -184,5 +184,4 @@ public class memPhotoFragment extends Fragment {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
-
 }

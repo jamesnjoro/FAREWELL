@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.util.List;
@@ -35,6 +36,7 @@ public class photoAdapter extends RecyclerView.Adapter<photoAdapter.viewHolder> 
         StorageReference store = storage.getReference("photos/" + Currentphoto.getPath());
         GlideApp.with(mcontext)
                 .load(store)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(viewHolder.view);
     }
 
