@@ -22,17 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -64,7 +61,7 @@ public class memPhotoFragment extends Fragment {
     StorageReference store;
     DateFormat sdf= new SimpleDateFormat("yyyy/MM/dd");
     RecyclerView recyclerView;
-    photoAdapter PhotoAdapter;
+    photo2Adapter PhotoAdapter;
     Query phot;
     List<photo> mphotos = new ArrayList<>();
     CollectionReference collect;
@@ -82,25 +79,10 @@ public class memPhotoFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
         collect = db.collection("photos");
         phot =collect.whereEqualTo("deceased",m.getName());
-
-        phot.get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(QueryDocumentSnapshot snap: task.getResult()){
-                            photo p = snap.toObject(photo.class);
-                            mphotos.add(p);
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        Context con = getActivity();
-        PhotoAdapter = new photoAdapter(con,mphotos);
+        FirestoreRecyclerOptions<photo> options = new FirestoreRecyclerOptions.Builder<photo>()
+                .setQuery(phot,photo.class)
+                .build();
+        PhotoAdapter = new photo2Adapter(options);
         recyclerView.setAdapter(PhotoAdapter);
         dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.photopopup);
@@ -183,5 +165,16 @@ public class memPhotoFragment extends Fragment {
         ContentResolver cr = getContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        PhotoAdapter.startListening();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        PhotoAdapter.stopListening();
     }
 }

@@ -37,6 +37,9 @@ public class MyAdapter extends FirestoreRecyclerAdapter<postI, MyAdapter.MyAdapt
         }
 
 
+
+
+
     }
 
     @NonNull
