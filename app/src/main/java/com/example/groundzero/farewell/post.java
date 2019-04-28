@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -50,6 +51,7 @@ public class post extends AppCompatActivity implements AdapterView.OnItemSelecte
     DateFormat sdf= new SimpleDateFormat("yyyy/MM/dd");
     String dat;
     String n,da,dd,s,de,e;
+    ImageView image;
 
     public void toast(String message){
         Toast.makeText(post.this, message,
@@ -64,6 +66,7 @@ public class post extends AppCompatActivity implements AdapterView.OnItemSelecte
 
         name = findViewById(R.id.editText4);
         dob = findViewById(R.id.editText9);
+        image = findViewById(R.id.sunset);
         dod = findViewById(R.id.editText6);
         description = (EditText)findViewById(R.id.editText7);
         eulogy = (EditText)findViewById(R.id.editText8);
@@ -82,7 +85,10 @@ public class post extends AppCompatActivity implements AdapterView.OnItemSelecte
         Circle = new Circle();
         progressBar.setIndeterminateDrawable(Circle);
 
-
+        GlideApp.with(post.this)
+                .load(R.drawable.sunset)
+                .centerCrop()
+                .into(image);
         adapter = ArrayAdapter.createFromResource(this,R.array.genders,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sex.setAdapter(adapter);

@@ -116,13 +116,6 @@ public class MainActivity extends AppCompatActivity
                     nameNav.setText("No name");
                 }
             });
-            if(check.isConnected()){
-               toast("connection successful");
-
-            }else{
-                toast("connection unsuccessful");
-            }
-
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder,
                     new orbituaryFragment()).commit();
 
@@ -137,7 +130,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void startScreen(){
-        Intent i = new Intent(MainActivity.this,LoginActivity.class);
+        Intent i = new Intent(MainActivity.this,start.class);
         startActivity(i);
         finish();
     }
@@ -192,7 +185,9 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHolder,
                     new memorialFragment()).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_settings) {
+            Intent i = new Intent(MainActivity.this,settings.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_send) {
                 FirebaseAuth.getInstance().signOut();

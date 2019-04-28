@@ -72,10 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(email.getText().toString().length()>1 && password.getText().toString().equals("")){
-                    Intent I = new Intent(LoginActivity.this,activity_signup.class);
-                    startActivity(I);
-
-
+                    Toast.makeText(LoginActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
                 }
                 if(email.getText().toString().equals("") && password.getText().toString().equals("")){
 

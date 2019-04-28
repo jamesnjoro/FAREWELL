@@ -11,11 +11,9 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/memorial"
-            android:title="@string/Memorials" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/tribute"
-            android:title="@string/Tributes" />
+            android:title="@string/Memorials"
+            />
+
 
     </group>
 

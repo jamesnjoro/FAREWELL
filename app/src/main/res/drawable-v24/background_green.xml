@@ -5,6 +5,10 @@
         android:bottomLeftRadius="20dp"
         android:bottomRightRadius="20dp"
         android:topRightRadius="20dp"/>
+    <gradient
+        android:startColor="@color/colorPrimary"
+        android:centerColor="@color/colorPrimary"
+        android:endColor="@color/colorPrimary"/>
 
     <stroke
             android:color="@color/white"

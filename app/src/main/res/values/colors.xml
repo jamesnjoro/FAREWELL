@@ -8,4 +8,7 @@
     <color name="white">#ffffffff</color>
     <color name="black">#050404</color>
     <color name="lightBlack">#443434</color>
+    <color name="red">#F00707</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

@@ -158,6 +158,7 @@ public class service extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.service, container, false);
         p = getArguments().getParcelable("orbi");
+        userE = getArguments().getString("owner");
         date = rootView.findViewById(R.id.Sdate);
         startT = rootView.findViewById(R.id.serviceStart);
         stopT = rootView.findViewById(R.id.serviceStop);
@@ -170,7 +171,6 @@ public class service extends Fragment {
         view = FirebaseFirestore.getInstance();
         noD = rootView.findViewById(R.id.noD);
         r = rootView.findViewById(R.id.view);
-        userE = getArguments().getString("owner");
         ref = view.collection("service").document(p.getName());
         ref.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
