@@ -10,23 +10,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="120dp"
-        android:id="@+id/settingImage"
-        android:src="@drawable/noimage"
-        android:layout_centerHorizontal="true"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/settingImage"
-        android:text="@string/USERNAME"
-        android:id="@+id/settingName"
-        android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/settingName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/jacques_francois_shadow"
+            android:text="@string/USERNAME"
+            android:textSize="18sp" />
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:id="@+id/settingObituaries"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/settingName">
 
     </android.support.v7.widget.RecyclerView>
@@ -34,11 +33,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/settingMemorials"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/settingObituaries">
 
     </android.support.v7.widget.RecyclerView>
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:id="@+id/settingTributes"
         android:layout_below="@+id/settingMemorials">

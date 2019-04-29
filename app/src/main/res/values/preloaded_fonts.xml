@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/amita</item>
         <item>@font/arizonia</item>
+        <item>@font/changa_extralight</item>
+        <item>@font/jacques_francois_shadow</item>
         <item>@font/open_sans_bold</item>
     </array>
 </resources>

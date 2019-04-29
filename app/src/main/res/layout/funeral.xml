@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_width="wrap_content"
+    android:background="@drawable/background_gradient"
     >
     xmlns:android="http://schemas.android.com/apk/res/android" />
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,17 +53,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/meetingP"
+                android:background="@null"
                 tools:fontFamily="@font/open_sans"
                 android:textSize="20sp" />
         </android.support.v7.widget.CardView>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.4"
             android:text=" at "
-            tools:fontFamily="@font/open_sans"
-            android:textSize="16sp"
             android:textAlignment="center"
-            android:layout_weight="0.4"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            tools:fontFamily="@font/open_sans" />
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="0dp"
@@ -103,13 +107,6 @@
                 android:background="@null"/>
 
         </android.support.v7.widget.CardView>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/description"
-            android:layout_weight="1"
-            tools:fontFamily="@font/open_sans"
-            android:layout_margin="10dp"/>
     </LinearLayout>
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -177,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:id="@+id/mpesa"
-                    android:background="@null"/>
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:id="@+id/bank"
-                    android:background="@null"/>
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -211,13 +208,14 @@
                     android:textAlignment="center"
                     android:layout_weight="1"
                     android:text="Paypal"
-                    android:background="@drawable/bn_bg"/>
+                    android:background="@drawable/bn_bg"
+                    />
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:id="@+id/paypal"
-                    android:background="@null"/>
+                    />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

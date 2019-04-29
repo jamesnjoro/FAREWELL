@@ -1,15 +1,20 @@
 package com.example.groundzero.farewell;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +43,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import static android.app.Activity.RESULT_OK;
 import static java.lang.System.currentTimeMillis;
 
@@ -58,6 +68,7 @@ public class deceased extends Fragment {
     String dpath;
     FirebaseFirestore  dbs;
     FirebaseStorage storages;
+    int REQUEST_WRITE_STORAGE = 2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +107,43 @@ public class deceased extends Fragment {
                 Toast.makeText(getActivity(), "button clicked", Toast.LENGTH_SHORT).show();
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("image/jpeg");
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                b.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+
+
+                boolean hasPermission = (ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+                if(hasPermission){
+
+                    File file = new File(Environment.getExternalStorageDirectory() + File.separator + "obituaryPost.jpg");
+                    try {
+                        file.createNewFile();
+                        FileOutputStream fileOutputStream = new FileOutputStream(file);
+                        fileOutputStream.write(byteArrayOutputStream.toByteArray());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    share.putExtra(Intent.EXTRA_STREAM,Uri.parse("file:///sdcard/obituaryPost.jpg"));
+                    startActivity(Intent.createChooser(share,"Share post"));
+
+                }else{
+                    // ask the permission
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            REQUEST_WRITE_STORAGE);
+                    // You have to put nothing here (you can't write here since you don't
+                    // have the permission yet and requestPermissions is called asynchronously)
+                }
+
+
+
+
+
+
+
+
             }
         });
 
@@ -112,10 +160,10 @@ public class deceased extends Fragment {
 
 
             storeget = storage.getReference("deceased_pics/" + p.getPhoto());
-            /*GlideApp.with(getActivity())
+            GlideApp.with(getActivity())
                     .load(storeget)
                     .placeholder(R.drawable.noimage)
-                    .into(view);*/
+                    .into(view);
 
 
             store= storage.getReference("deceased_pics");
@@ -232,6 +280,20 @@ public class deceased extends Fragment {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // The result of the popup opened with the requestPermissions() method
+        // is in that method, you need to check that your application comes here
+        if (requestCode == REQUEST_WRITE_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // write
+            }
+        }
+    }
+
 
 
 

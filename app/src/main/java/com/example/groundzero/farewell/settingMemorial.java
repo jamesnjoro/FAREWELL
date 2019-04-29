@@ -1,57 +1,52 @@
 package com.example.groundzero.farewell;
 
+
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+public class settingMemorial extends FirestoreRecyclerAdapter<Memorial, settingMemorial.MyAdapterHolder> {
 
-public class storyAdapter extends FirestoreRecyclerAdapter<story, storyAdapter.MyAdapterHolder> {
-
-    FirebaseFirestore db;
-    DocumentReference ref;
-    StorageReference store;
-    FirebaseStorage storage;
     onclickListener listener;
-    public storyAdapter(@NonNull FirestoreRecyclerOptions<story> options) {
+
+    public settingMemorial(@NonNull FirestoreRecyclerOptions<Memorial> options) {
         super(options);
     }
-    String user, path;
     @Override
-    protected void onBindViewHolder(@NonNull MyAdapterHolder holder, int position, @NonNull story model) {
+    protected void onBindViewHolder(@NonNull MyAdapterHolder holder, int position, @NonNull final Memorial model) {
+        holder.n.setText(model.getName());
+        String text =model.getBirth();
+        holder.dd.setText(text);
+        if(model.getPhoto()!=null){
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference store = storage.getReference("deceased_pics/" + model.getPhoto());
+            GlideApp.with(holder.view.getContext())
+                    .load(store)
+                    .placeholder(R.drawable.noimage)
+                    .into(holder.view);
+        }
 
-        holder.story.setText(model.getStory());
-        db = FirebaseFirestore.getInstance();
-        storage =FirebaseStorage.getInstance();
-        ref = db.collection("users").document(model.getUserEmail());
-        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-              user = documentSnapshot.getString("name");
-              path = documentSnapshot.getString("path");
+            public void onClick(View v) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                DocumentReference ref = db.collection("memorials").document(model.getName());
+                ref.delete();
             }
         });
-
-        holder.user.setText(user);
-        store = storage.getReference("users_dp/" + path);
-        GlideApp.with(holder.view.getContext())
-                .load(store)
-                .into(holder.view);
 
 
     }
@@ -59,18 +54,20 @@ public class storyAdapter extends FirestoreRecyclerAdapter<story, storyAdapter.M
     @NonNull
     @Override
     public MyAdapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.story_item,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.setting_memorial,viewGroup,false);
         return new MyAdapterHolder(v);
     }
 
     public class MyAdapterHolder extends RecyclerView.ViewHolder{
-        TextView user,story;
+        TextView n,dd;
         ImageView view;
+        Button delete;
         public MyAdapterHolder(@NonNull View itemView) {
             super(itemView);
-            user = (TextView)itemView.findViewById(R.id.storyuser);
-            story= (TextView)itemView.findViewById(R.id.story);
-            view = itemView.findViewById(R.id.storypic);
+            n = itemView.findViewById(R.id.memName1);
+            dd= itemView.findViewById(R.id.memDate1);
+            view = itemView.findViewById(R.id.memPhoto1);
+            delete = itemView.findViewById(R.id.delete);
 
 
 
@@ -90,7 +87,7 @@ public class storyAdapter extends FirestoreRecyclerAdapter<story, storyAdapter.M
     }
 
     public interface onclickListener{
-        void onItemClick(DocumentSnapshot documentSnapshot,int position);
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
 
 
     }

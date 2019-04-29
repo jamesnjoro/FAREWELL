@@ -11,6 +11,9 @@ public class user {
         this.path = path;
     }
 
+    public user() {
+    }
+
     public String getName() {
         return name;
     }
